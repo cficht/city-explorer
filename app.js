@@ -36,7 +36,6 @@ app.get('/location', (request, response) => {
     console.log(longitude);
 
     response.json({
-        name: request.query.name,
         formatted_query: mungLatAndLong.formatted_query,
         latitude: mungLatAndLong.latitude,
         longitude: mungLatAndLong.longitude,
