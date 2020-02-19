@@ -34,9 +34,9 @@ app.get('*', (request, response) => {
     });
 });
 
-app.listen(3000, () => { console.log('running...'); });
+// app.listen(3000, () => { console.log('running...'); });
 
-console.log(getLatGetLong(0));
+// console.log(getLatGetLong(0));
 
 module.exports = {
     app: app
