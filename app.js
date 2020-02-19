@@ -1,8 +1,10 @@
 const express = require('express');
 const darkSkyData = require('./data/darksky.json');
 const geoData = require('./data/geo.json');
+const cors = require('cors');
 
 const app = express();
+app.use(cors());
 
 const getLatGetLong = (number) => {
     const data = geoData.results;
