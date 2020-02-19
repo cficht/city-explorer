@@ -1,5 +1,5 @@
 const express = require('express');
-// const darkSkyData = require('./data/darksky.json');
+const darkSkyData = require('./data/darksky.json');
 const geoData = require('./data/geo.json');
 
 const app = express();
@@ -27,6 +27,23 @@ app.get('/location', (request, response) => {
         latitude: mungLatAndLong.latitude,
         longitude: mungLatAndLong.longitude,
     });
+});
+
+const getWeatherData = (latitude, longitude) => {
+    return darkSkyData.daily.data.map(forecast => {
+        return {
+            forecast: forecast.summary,
+            time: new Date(forecast.time)
+        };
+    });
+};
+
+app.get('/weather', (request, response) => {
+    // use the lat and long from earlier to get weather data for the selected area
+    const portlandWeather = getWeatherData(request.query.latitude, request.query.longitude);
+
+    // res.js that weather data in the appropriate form
+    response.json(portlandWeather);
 });
 
 app.get('*', (request, response) => {
