@@ -6,6 +6,9 @@ const cors = require('cors');
 const app = express();
 app.use(cors());
 
+let latitude;
+let longitude;
+
 const getLatGetLong = (number) => {
     const data = geoData.results;
 
@@ -22,7 +25,16 @@ const getLatGetLong = (number) => {
 };
 
 app.get('/location', (request, response) => {
+    const location = request.query.search;
+    console.log(location);
+
     const mungLatAndLong = getLatGetLong(0);
+
+    latitude = mungLatAndLong.latitude;
+    longitude = mungLatAndLong.longitude;
+    console.log(latitude);
+    console.log(longitude);
+
     response.json({
         name: request.query.name,
         formatted_query: mungLatAndLong.formatted_query,
@@ -31,11 +43,12 @@ app.get('/location', (request, response) => {
     });
 });
 
+
 const getWeatherData = (latitude, longitude) => {
     return darkSkyData.daily.data.map(forecast => {
         return {
             forecast: forecast.summary,
-            time: new Date(forecast.time)
+            time: new Date(forecast.time * 1000)
         };
     });
 };
