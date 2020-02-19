@@ -19,8 +19,8 @@ const getLatGetLong = (number) => {
     return dataMapped[number];
 };
 
-app.get('/location/:validLoc', (request, response) => {
-    const mungLatAndLong = getLatGetLong(request.params.validLoc);
+app.get('/location', (request, response) => {
+    const mungLatAndLong = getLatGetLong(0);
     response.json({
         formatted_query: mungLatAndLong.formatted_query,
         latitude: mungLatAndLong.latitude,
@@ -34,7 +34,9 @@ app.get('*', (request, response) => {
     });
 });
 
-// app.listen(3000, () => { console.log('running...'); });
+app.listen(3000, () => { console.log('running...'); });
+
+console.log(getLatGetLong(0));
 
 module.exports = {
     app: app

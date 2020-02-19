@@ -5,7 +5,7 @@ describe('/GET /location', () => {
     test('It should respond with correct latitude and longituden',
         async(done) => {
             const response = await request(app)
-                .get('/location/0');
+                .get('/location');
             expect(response.body).toEqual({
                 formatted_query: '30 NW 10th Ave, Portland, OR 97209, USA',
                 latitude: 45.5234211,
