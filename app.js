@@ -22,6 +22,7 @@ const getLatGetLong = (number) => {
 app.get('/location', (request, response) => {
     const mungLatAndLong = getLatGetLong(0);
     response.json({
+        name: request.query.name,
         formatted_query: mungLatAndLong.formatted_query,
         latitude: mungLatAndLong.latitude,
         longitude: mungLatAndLong.longitude,
