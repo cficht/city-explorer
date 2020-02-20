@@ -73,7 +73,7 @@ app.get('/events', async(req, res, next) => {
     }
 });
 
-app.get('/yelp', async(req, res, next) => {
+app.get('/reviews', async(req, res, next) => {
     try {
         const yelpStuff = await request
             .get(`https://api.yelp.com/v3/businesses/search?term=restaurants&latitude=${latitude}&longitude=${longitude}`)
@@ -129,8 +129,6 @@ app.get('*', (req, res) => {
         onNo: '404'
     });
 });
-
-// app.listen(3000, () => { console.log('running...'); });
 
 module.exports = {
     app: app
