@@ -80,8 +80,6 @@ app.get('/yelp', async(req, res, next) => {
 
 app.get('/events', async(req, res) => {
     try {
-        // latitude = 45.5234211;
-        // longitude = -122.6809008;
 
         const eventful = await request
             .get(`http://api.eventful.com/json/events/search?app_key=${process.env.EVENTFUL_API_KEY}&where=${latitude},${longitude}&within=25`); 
