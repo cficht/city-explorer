@@ -73,6 +73,7 @@ app.get('/events', async(req, res, next) => {
     }
 });
 
+
 app.get('/reviews', async(req, res, next) => {
     try {
         const yelpStuff = await request
@@ -111,7 +112,7 @@ app.get('/trails', async(req, res, next) => {
                 star_votes: trail.starVotes,
                 summary: trail.summary,
                 trail_url: trail.url,
-                conditions: trail.conditionDetails,
+                conditions: trail.conditionStatus,
                 condition_date: trail.conditionDate.split(' ')[0],
                 condition_time: trail.conditionDate.split(' ')[1]
             };
