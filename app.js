@@ -63,8 +63,8 @@ app.get('/events', async(req, res) => {
             return {
                 link: event.url,
                 name: event.title,
-                date: event.start_time,
-                summary: event.description,
+                event_date: event.start_time,
+                summary: event.description === null ? 'N/A' : event.description,
             };
         });
     
