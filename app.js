@@ -115,8 +115,7 @@ app.get('/trails', async(req, res, next) => {
                 condition_date: trail.conditionDate.split(' ')[0],
                 condition_time: trail.conditionDate.split(' ')[1]
             };
-        });
-    
+        });    
         res.json(trailsMap);
     } catch (err) {
         next(err);
