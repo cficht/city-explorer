@@ -1,7 +1,5 @@
 require('dotenv').config();
 const express = require('express');
-// const darkSkyData = require('./data/darksky.json');
-// const geoData = require('./data/geo.json');
 const cors = require('cors');
 const request = require('superagent');
 
@@ -54,6 +52,27 @@ app.get('/weather', async(req, res, next) => {
     }
 });
 
+app.get('/events', async(req, res) => {
+    try {
+
+        const eventful = await request
+            .get(`http://api.eventful.com/json/events/search?app_key=${process.env.EVENTFUL_API_KEY}&where=${latitude},${longitude}&within=25`); 
+
+        const eventfulObject = JSON.parse(eventful.text);
+        const eventfulMap = eventfulObject.events.event.map(event => {
+            return {
+                link: event.url,
+                name: event.title,
+                date: event.start_time,
+                summary: event.description,
+            };
+        });
+    
+        res.json(eventfulMap);
+    } catch (err) {
+        res.status(500).send('Sorry something went wrong, please try again');
+    }
+});
 
 app.get('/yelp', async(req, res, next) => {
     try {
@@ -75,28 +94,6 @@ app.get('/yelp', async(req, res, next) => {
         res.json(yelpBusinesses);
     } catch (err) {
         next(err);
-    }
-});
-
-app.get('/events', async(req, res) => {
-    try {
-
-        const eventful = await request
-            .get(`http://api.eventful.com/json/events/search?app_key=${process.env.EVENTFUL_API_KEY}&where=${latitude},${longitude}&within=25`); 
-
-        const eventfulObject = JSON.parse(eventful.text);
-        const eventfulMap = eventfulObject.events.event.map(event => {
-            return {
-                link: event.url,
-                name: event.title,
-                date: event.start_time,
-                summary: event.description,
-            };
-        });
-    
-        res.json(eventfulMap);
-    } catch (err) {
-        res.status(500).send('Sorry something went wrong, please try again');
     }
 });
 
